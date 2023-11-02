@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {FormatPhone} from '../utils/PhoneUtil';
 
 const Login = () => {
   const [select, setSelect] = useState(false);
@@ -160,6 +161,8 @@ const Login = () => {
   };
 
   const otherLogin = () => {
+    const canLogin =
+      phone.replaceAll(' ', '').length === 11 && password.length >= 6;
     const other = StyleSheet.create({
       main: {
         width: '100%',
@@ -276,6 +279,9 @@ const Login = () => {
         width: 50,
         resizeMode: 'contain',
       },
+      loginButtonNo: {
+        backgroundColor: '#333',
+      },
     });
     return (
       <View style={other.main}>
@@ -304,7 +310,10 @@ const Login = () => {
               placeholder="请输入手机号"
               placeholderTextColor="grey"
               keyboardType="numeric"
+              maxLength={13}
               onChangeText={v => {
+                v = FormatPhone(v);
+                console.log(v);
                 setPhone(v);
               }}
               value={phone}
@@ -351,7 +360,15 @@ const Login = () => {
               <Text style={other.jumpTypeLeftText}>忘记密码?</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity activeOpacity={0.5} style={other.loginButton}>
+          <TouchableOpacity
+            disabled={!canLogin}
+            activeOpacity={0.5}
+            style={[
+              other.loginButton,
+              {
+                backgroundColor: !canLogin ? 'rgb(216,216,215)' : '',
+              },
+            ]}>
             <Text style={other.loginButtonText}>登 录</Text>
           </TouchableOpacity>
           <View style={other.accept}>
