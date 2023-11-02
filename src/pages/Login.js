@@ -13,7 +13,10 @@ import {
 const Login = () => {
   const [select, setSelect] = useState(false);
   const [type, setType] = useState('quick');
+  const [hidePassword, setHidePassword] = useState(true);
 
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const quickLogin = () => {
     const styles = StyleSheet.create({
       acceptText: {
@@ -136,7 +139,6 @@ const Login = () => {
         </View>
         <View style={styles.accept}>
           <TouchableOpacity
-            style={styles.acceptImgContainer}
             onPress={() => {
               setSelect(!select);
             }}
@@ -190,18 +192,89 @@ const Login = () => {
         borderBottomColor: '#ddd',
         flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 20,
       },
       phoneInput: {
         fontSize: 20,
         paddingLeft: 15,
       },
       quhao: {
-        fontSize: 26,
+        fontSize: 23,
         lineHeight: 28,
       },
       phoneImg: {
         width: 13,
         height: 13,
+        resizeMode: 'contain',
+      },
+      passwordInputContainer: {
+        width: '100%',
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
+      passwordInput: {
+        fontSize: 20,
+        flex: 1,
+      },
+      jumpType: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
+      jumpTypeLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      jumpTypeLeftText: {
+        color: 'rgb(15,45,98)',
+        marginLeft: 3,
+      },
+      jumpTypeLeftImg: {
+        width: 20,
+        resizeMode: 'contain',
+      },
+      jumpTypeRight: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      loginButton: {
+        width: '100%',
+        height: 45,
+        backgroundColor: 'rgb(255,36,66)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+      },
+      loginButtonText: {
+        fontSize: 20,
+        color: 'white',
+      },
+      acceptText: {
+        paddingLeft: 10,
+        flex: 1,
+      },
+      acceptImg: {
+        width: 20,
+        height: 20,
+        resizeMode: 'contain',
+      },
+      accept: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+      },
+      socialLogin: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+      },
+      socialLoginImg: {
+        width: 50,
         resizeMode: 'contain',
       },
     });
@@ -210,6 +283,7 @@ const Login = () => {
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => {
+            LayoutAnimation.easeInEaseOut();
             setType('quick');
           }}>
           <Image
@@ -231,7 +305,88 @@ const Login = () => {
               placeholder="请输入手机号"
               placeholderTextColor="grey"
               keyboardType="numeric"
+              onChangeText={v => {
+                setPhone(v);
+              }}
+              value={phone}
             />
+          </View>
+          <View style={other.passwordInputContainer}>
+            <TextInput
+              style={other.passwordInput}
+              placeholder="请输入密码"
+              placeholderTextColor="grey"
+              secureTextEntry={hidePassword}
+              value={password}
+              onChangeText={v => {
+                setPassword(v);
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setHidePassword(!hidePassword);
+              }}>
+              <Image
+                style={{
+                  width: 30,
+                  height: 30,
+                  resizeMode: 'contain',
+                }}
+                source={
+                  hidePassword
+                    ? require('../assets/icon_eye_close.png')
+                    : require('../assets/icon_eye_open.png')
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={other.jumpType}>
+            <TouchableOpacity style={other.jumpTypeLeft}>
+              <Image
+                style={other.jumpTypeLeftImg}
+                source={require('../assets/icon_exchange.png')}
+              />
+              <Text style={other.jumpTypeLeftText}>验证码登录</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={other.jumpTypeRight}>
+              <Text style={other.jumpTypeLeftText}>忘记密码?</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity activeOpacity={0.5} style={other.loginButton}>
+            <Text style={other.loginButtonText}>登 录</Text>
+          </TouchableOpacity>
+          <View style={other.accept}>
+            <TouchableOpacity
+              onPress={() => {
+                setSelect(!select);
+              }}
+              activeOpacity={0.5}>
+              <Image
+                source={
+                  select
+                    ? require('../assets/icon_selected.png')
+                    : require('../assets/icon_unselected.png')
+                }
+                style={other.acceptImg}
+              />
+            </TouchableOpacity>
+            <Text style={other.acceptText}>
+              我已阅读并同意《用户协议》《隐私政策》《儿童或青少年信息保护规则》
+            </Text>
+          </View>
+          <View style={other.socialLogin}>
+            <TouchableOpacity activeOpacity={0.5}>
+              <Image
+                style={other.socialLoginImg}
+                source={require('../assets/icon_wx.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.5}>
+              <Image
+                style={other.socialLoginImg}
+                source={require('../assets/icon_qq.webp')}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
