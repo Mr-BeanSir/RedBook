@@ -5,18 +5,39 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {FormatPhone} from '../utils/PhoneUtil';
+import {easyRequest} from '../utils/RequestUtil';
+import Apis from '../utils/ApiTypeUtil';
+import UserStore from '../store/UserStore';
+import {useNavigation} from '@react-navigation/native';
 
 const Login = () => {
+  const navigate = useNavigation();
+
   const [select, setSelect] = useState(false);
   const [type, setType] = useState('quick');
   const [hidePassword, setHidePassword] = useState(true);
-
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('12345678901');
+  const [password, setPassword] = useState('123456');
+  const onLoginClick = async () => {
+    const params = {
+      name: 'dagongjue',
+      pwd: '123456',
+    };
+    let res = await easyRequest(Apis.login, params);
+    console.log(res);
+    if (res.data) {
+      UserStore.setUserInfo(res.data);
+      LayoutAnimation.easeInEaseOut();
+      navigate.replace('HomeTab');
+    } else {
+      ToastAndroid.show('登录失败', ToastAndroid.SHORT);
+    }
+  };
   const quickLogin = () => {
     const styles = StyleSheet.create({
       acceptText: {
@@ -246,7 +267,7 @@ const Login = () => {
       loginButton: {
         width: '100%',
         height: 45,
-        backgroundColor: 'rgb(255,36,66)',
+
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 25,
@@ -363,10 +384,13 @@ const Login = () => {
           <TouchableOpacity
             disabled={!canLogin}
             activeOpacity={0.5}
+            onPress={onLoginClick}
             style={[
               other.loginButton,
               {
-                backgroundColor: !canLogin ? 'rgb(216,216,215)' : '',
+                backgroundColor: !canLogin
+                  ? 'rgb(216,216,215)'
+                  : 'rgb(255,36,66)',
               },
             ]}>
             <Text style={other.loginButtonText}>登 录</Text>

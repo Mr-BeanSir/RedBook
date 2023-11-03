@@ -1,13 +1,8 @@
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 
 const Welcome = () => {
-  /**
-   *
-   * @type {StackNavigationProp<ReactNavigation.RootParamList>}
-   */
   const navigate = useNavigation();
 
   useEffect(() => {

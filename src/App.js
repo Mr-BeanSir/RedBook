@@ -1,10 +1,11 @@
 import React from 'react';
-import {StatusBar, Text} from 'react-native';
+import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import welcome from './pages/Welcome';
 import login from './pages/Login';
+import homeTab from './pages/HomeTab';
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -23,6 +24,11 @@ const App = () => {
           <Stack.Screen
             name={'Login'}
             component={login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name={'HomeTab'}
+            component={homeTab}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
