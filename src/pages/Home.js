@@ -21,6 +21,10 @@ const Home = observer(() => {
   }, []);
 
   const renderItem = ({item, index}) => {
+    const onChanged = bool => {
+      console.log('click');
+      item.isFavorite = bool;
+    };
     return (
       <TouchableOpacity key={item} style={styles.item} activeOpacity={0.5}>
         <ResizeImage style={styles.img} uri={item.image} />
@@ -31,10 +35,11 @@ const Home = observer(() => {
             source={{uri: item.avatarUrl}}
           />
           <Text style={styles.itemNameViewText}>{item.userName}</Text>
-          <Image
-            style={styles.itemNameViewHeart}
-            source={require('../assets/icon_heart_empty.png')}
-          />
+          <Hearts size={23} onChanged={onChanged} bool={item.isFavorite} />
+          {/*<Image*/}
+          {/*  style={styles.itemNameViewHeart}*/}
+          {/*  source={require('../assets/icon_heart_empty.png')}*/}
+          {/*/>*/}
           <Text style={styles.itemNameViewHeartText}>{item.favoriteCount}</Text>
         </View>
       </TouchableOpacity>
