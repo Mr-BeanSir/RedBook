@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 export const styles = StyleSheet.create({
   caroselImageStyle: {
     width: width,

@@ -1,41 +1,40 @@
 import React from 'react';
-import { View, Text, ActivityIndicator, Image, Dimensions } from 'react-native';
+import {ActivityIndicator, Dimensions, Image, Text, View} from 'react-native';
 import TopView from './TopView';
-const { width } = Dimensions.get('screen');
+
+const {width} = Dimensions.get('screen');
 
 const LoadingOptions: any = {};
 
 export default class Loading {
-
-    static setLoadingOptions(options: any = {}) {
-        if (typeof options.text === 'string') {
-            LoadingOptions.text = options.text;
-        }
-        if (typeof options.loadingBackgroundColor === 'string') {
-            LoadingOptions.loadingBackgroundColor =
-                options.loadingBackgroundColor;
-        }
-        if (options.loadingImage != undefined) {
-            LoadingOptions.loadingImage = options.loadingImage;
-        }
-        if (
-            typeof options.loadingViewStyle === 'object' &&
-            !Array.isArray(options.loadingViewStyle)
-        ) {
-            LoadingOptions.loadingViewStyle = options.loadingViewStyle;
-        }
-        if (
-            typeof options.loadingTextStyle === 'object' &&
-            !Array.isArray(options.loadingTextStyle)
-        ) {
-            LoadingOptions.loadingTextStyle = options.loadingTextStyle;
-        }
+  static setLoadingOptions(options: any = {}) {
+    if (typeof options.text === 'string') {
+      LoadingOptions.text = options.text;
     }
+    if (typeof options.loadingBackgroundColor === 'string') {
+      LoadingOptions.loadingBackgroundColor = options.loadingBackgroundColor;
+    }
+    if (options.loadingImage != undefined) {
+      LoadingOptions.loadingImage = options.loadingImage;
+    }
+    if (
+      typeof options.loadingViewStyle === 'object' &&
+      !Array.isArray(options.loadingViewStyle)
+    ) {
+      LoadingOptions.loadingViewStyle = options.loadingViewStyle;
+    }
+    if (
+      typeof options.loadingTextStyle === 'object' &&
+      !Array.isArray(options.loadingTextStyle)
+    ) {
+      LoadingOptions.loadingTextStyle = options.loadingTextStyle;
+    }
+  }
 
   static show(
     textContent = LoadingOptions.text && LoadingOptions.text.length > 0
       ? LoadingOptions.text
-      : '加载中...'
+      : '加载中...',
   ) {
     const loadingBackgroundColor = LoadingOptions.loadingBackgroundColor
       ? LoadingOptions.loadingBackgroundColor
@@ -56,8 +55,7 @@ export default class Loading {
           backgroundColor: loadingBackgroundColor,
           justifyContent: 'center',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <View
           style={[
             {
@@ -68,19 +66,18 @@ export default class Loading {
               borderRadius: 5,
               margin: width * 0.1,
             },
-            { ...LoadingOptions.loadingViewStyle },
-          ]}
-        >
+            {...LoadingOptions.loadingViewStyle},
+          ]}>
           {LoadingOptions.loadingImage ? (
             <Image
               source={LoadingOptions.loadingImage}
-              style={{ marginTop: 10 }}
+              style={{marginTop: 10}}
             />
           ) : (
             <ActivityIndicator
               color={'#fff'}
               animating={true}
-              style={{ marginTop: 10 }}
+              style={{marginTop: 10}}
               size="large"
             />
           )}
@@ -93,9 +90,8 @@ export default class Loading {
                 lineHeight: 20,
                 marginBottom: 5,
               },
-              { ...LoadingOptions.loadingTextStyle },
-            ]}
-          >
+              {...LoadingOptions.loadingTextStyle},
+            ]}>
             {textContent}
           </Text>
         </View>
@@ -111,7 +107,7 @@ export default class Loading {
   static transformRoot(
     transform: any,
     animated: boolean,
-    animatesOnly: boolean = false
+    animatesOnly: boolean = false,
   ) {
     TopView.transform(transform, animated, animatesOnly);
   }
