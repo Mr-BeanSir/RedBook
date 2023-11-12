@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import welcome from './pages/Welcome';
 import login from './pages/Login';
-import homeTab from './pages/HomeTab';
+import homeTab from './pages/Main';
 
 const App = () => {
   const Stack = createStackNavigator();

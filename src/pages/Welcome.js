@@ -1,14 +1,20 @@
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {get} from '../utils/Storage';
 
 const Welcome = () => {
   const navigate = useNavigation();
 
   useEffect(() => {
-    setTimeout(() => {
-      navigate.replace('Login');
-    }, 3000);
+    setTimeout(async () => {
+      let account = await get('account');
+      if (account) {
+        navigate.replace('HomeTab');
+      } else {
+        navigate.replace('Login');
+      }
+    }, 100);
   }, []);
 
   return (

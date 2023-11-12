@@ -32,3 +32,5 @@ const clear = async () => {
     console.log(e);
   }
 };
+
+export {save, get, remove, clear};

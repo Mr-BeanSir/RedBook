@@ -28,14 +28,17 @@ const Login = () => {
       name: 'dagongjue',
       pwd: '123456',
     };
-    let res = await easyRequest(Apis.login, params);
-    console.log(res);
+    let res;
+    try {
+      res = await easyRequest(Apis.login, params);
+    } catch (e) {
+      ToastAndroid.show('登录失败', ToastAndroid.SHORT);
+      return;
+    }
     if (res.data) {
       UserStore.setUserInfo(res.data);
       LayoutAnimation.easeInEaseOut();
       navigate.replace('HomeTab');
-    } else {
-      ToastAndroid.show('登录失败', ToastAndroid.SHORT);
     }
   };
   const quickLogin = () => {

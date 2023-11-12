@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: 'http://192.168.118.214:7001',
+  baseURL: 'http://192.168.31.119:7001',
+  timeout: 1000 * 5,
 });
 
 request.interceptors.response.use(
@@ -9,6 +10,7 @@ request.interceptors.response.use(
     return res;
   },
   err => {
+    // console.log(err);
     const response = err.response;
     if (response) {
       const status = response.status;
@@ -36,7 +38,7 @@ const post = (url, params) => {
 
 request.interceptors.request.use(
   config => {
-    console.log(config);
+    // console.log(config);
     return config;
   },
   error => {
