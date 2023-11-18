@@ -7,17 +7,21 @@ import {
   View,
 } from 'react-native';
 import {observer, useLocalObservable} from 'mobx-react';
-import HomeStore from '../store/HomeStore';
+import HomeStore from '../../store/HomeStore';
 import {useEffect} from 'react';
-import FlowList from '../components/flowlist/FlowList';
-import ResizeImage from '../components/ResizeImage';
-import Hearts from '../components/Hearts';
+import FlowList from '../../components/flowlist/FlowList';
+import ResizeImage from '../../components/ResizeImage';
+import Hearts from '../../components/Hearts';
+import Header from './components/Header';
+import CategoryHeader from './components/CategoryHeader';
 
 const {width} = Dimensions.get('window');
 const Home = observer(() => {
   const store = useLocalObservable(() => new HomeStore());
+
   useEffect(() => {
     store.requestHomeList();
+    store.getCategoryList();
   }, []);
 
   const renderItem = ({item, index}) => {
@@ -45,10 +49,12 @@ const Home = observer(() => {
       </TouchableOpacity>
     );
   };
-
+  // console.log(store.categoryList);
+  const categoryList = store.categoryList.filter(i => i.isAdd);
   return (
     <View style={styles.root}>
-      <Hearts bool={true} size={64} />
+      <Header />
+      <CategoryHeader categoryData={categoryList} all={store.categoryList} />
       <FlowList
         data={store.homeList}
         renderItem={renderItem}

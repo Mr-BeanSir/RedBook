@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from './Home';
+import Home from './Home/Home';
 import {launchImageLibrary} from 'react-native-image-picker';
 
 const Bottom = createBottomTabNavigator();
@@ -89,7 +89,7 @@ const Main = () => {
           component={Home}
           options={{
             title: '首页',
-            // headerShown: false,
+            headerShown: false,
           }}
         />
         <Bottom.Screen
